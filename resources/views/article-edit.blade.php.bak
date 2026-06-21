@@ -1,0 +1,23 @@
+@extends('layouts.app')
+
+@section('title', 'Редактирование мероприятия')
+
+@section('content')
+<form action="{{ route('event-update', ['event' => $event]) }}" method="POST">
+	@csrf
+	@method('PATCH')
+	<div class="mb-3">
+		<label for="txtTitle" class="form-label">Название</label>
+		<input name="title" id="txtTitle" class="form-control" value="{{ $event->title }}">
+	</div>
+	<div class="mb-3">
+		<label for="txtAddress" class="form-label">Адрес</label>
+		<textarea name="address" id="txtAddress" class="form-control" row="3">{{ $event->address }}</textarea>
+	</div>
+	<div class="mb-3">
+		<label for="txtDate" class="form-label">Дата</label>
+		<input name="date" id="txtDate" class="form-control" type="date" row="3" value="{{ $event->date }}"/>
+	</div>
+	<input type="submit" class="btn btn-primary" value="Сохранить">
+</form>
+@endsection('content')

@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Article;
+
+class EventsController extends Controller
+{
+    public function index() {
+		$context = ['articles' => Article::latest()->get()];
+		return view('index', $context);
+	}
+	public function detail(Article $article) {
+		return view('detail', ['article' => $article]);
+	}
+}

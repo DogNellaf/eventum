@@ -1,0 +1,172 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Event;
+use App\Models\Article;
+
+class HomeController extends Controller
+{
+    private const EVENT_VALIDATOR = [
+		'title' => 'required|max:100',
+		'address' => 'required|max:300',
+		'date' => 'required|date'
+	];
+    private const ARTICLE_VALIDATOR = [
+		'title' => 'required|max:100',
+		'text' => 'required',
+		'event_id' => 'required|int'
+	];
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index() {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		return view('admin');
+	}
+	public function event_editor() {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$events = Event::paginate(5);
+		return view('event-editor', compact('events'));
+	}
+	public function event_create() {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		return view('event-create');
+	}
+	public function event_store(Request $request) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$validated = $request->validate(self::EVENT_VALIDATOR);
+		Event::create([
+			'title' => $validated['title'],
+			'address' => $validated['address'],
+			'date' => $validated['date']
+			]);
+		return redirect()->route('event-editor');
+	}
+	public function event_delete(Request $request, Event $event) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$event->delete();
+		return redirect()->route('event-editor');
+	}
+	public function event_edit(Event $event) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		return view('event-edit', ['event' => $event]);
+	}
+
+	public function event_update(Request $request, Event $event) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$validated = $request->validate(self::EVENT_VALIDATOR);
+		$event->fill(['title' => $validated['title'],
+				'address' => $validated['address'],
+				'date' => $validated['date']]);
+	  $event->save();
+	  return redirect()->route('event-editor');
+	}
+	public function article_editor() {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$articles  = Article::paginate(10);
+		return view('article-editor', compact('articles'));
+	}
+	public function article_create() {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		return view('article-create');
+	}
+	public function article_store(Request $request) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$validated = $request->validate(self::ARTICLE_VALIDATOR);
+		Article::create([
+			'title' => $validated['title'],
+			'created' => now(),
+			'text' => $validated['text'],
+			'event_id' => $validated['event_id']
+			]);
+		return redirect()->route('article-editor');
+	}
+	public function article_delete(Request $request, Article $article) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$article->delete();
+		return redirect()->route('article-editor');
+	}
+	public function article_edit(Article $article) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		return view('article-edit', ['article' => $article]);
+	}
+
+	public function article_update(Request $request, Article $article) {
+		$user = Auth::user();
+
+        if ($user->is_admin == 0) {
+            return abort('403');
+        }
+		$validated = $request->validate(self::ARTICLE_VALIDATOR);
+		$article->fill(['title' => $validated['title'],
+			'text' => $validated['text'],
+			'event_id' => $validated['event_id']]);
+	  $article->save();
+	  return redirect()->route('article-editor');
+	}
+}

@@ -1,0 +1,25 @@
+@extends('layouts.app')
+@section('title', 'Главная')
+@section('content')
+	<h1>Статьи</h1>
+	<table class="table table-striped table-borderless">
+		<thead>
+			<tr>
+				<th>Название статьи</th>
+				<th>Текст статьи</th>
+				<th>Мероприятие</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><h4></h4></td>
+				<td></td>
+				<td></td>
+				<td>
+					<a href="{{ route('detail', ['article' => $article]) }}">Подробнее...</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+@endsection('content')

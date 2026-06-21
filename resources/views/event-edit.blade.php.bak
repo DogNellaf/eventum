@@ -1,0 +1,22 @@
+@extends('layouts.app')
+
+@section('title', 'Добавление мероприятия')
+
+@section('content')
+<form action="{{ route('event-store') }}" method="POST">
+	@csrf
+	<div class="mb-3">
+		<label for="txtTitle" class="form-label">Название</label>
+		<input name="title" id="txtTitle" class="form-control">
+	</div>
+	<div class="mb-3">
+		<label for="txtAddress" class="form-label">Адрес</label>
+		<textarea name="address" id="txtAddress" class="form-control" row="3"></textarea>
+	</div>
+	<div class="mb-3">
+		<label for="txtDate" class="form-label">Дата</label>
+		<input name="date" id="txtDate" class="form-control" type="date" row="3"/>
+	</div>
+	<input type="submit" class="btn btn-primary" value="Добавить">
+</form>
+@endsection('content')

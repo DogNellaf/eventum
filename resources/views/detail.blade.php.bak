@@ -1,0 +1,8 @@
+@extends('layouts.app')
+@section('title', 'Информация о статье')
+@section('content')
+	<h1>Информация о статье {{$article->name}}</h1>
+	<p>{{$article->title}}</p>
+	<p>{{$article->created}}</p>
+	<p>{{$article->event_id}}</p>
+@endsection('content')
