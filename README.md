@@ -1,33 +1,35 @@
 # Eventum
 
-Платформа для публикации статей о мероприятиях. Позволяет организаторам вести каталог событий и привязывать к ним материалы, а читателям — знакомиться с публикациями без регистрации.
+**[Русский](README.ru.md)**
 
-## Возможности
+A platform for publishing articles about events. Organizers can maintain a catalogue of events and attach articles to them; readers can browse publications without signing up.
 
-- Просмотр статей на публичной странице — без авторизации
-- Детальная страница каждой статьи с привязкой к мероприятию
-- Регистрация и вход для пользователей
-- Панель администратора для полного управления мероприятиями и статьями
-- Пагинация списков
-- Валидация форм с отображением ошибок
+## Features
 
-## Стек
+- Public article feed — no login required
+- Article detail page with linked event info
+- User registration and authentication
+- Admin panel for full CRUD management of events and articles
+- Paginated lists
+- Server-side form validation with inline error messages
 
-| Слой | Технология |
-|------|-----------|
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
 | Backend | PHP 8.0+, Laravel 9 |
-| База данных | MySQL |
+| Database | MySQL |
 | Frontend | Bootstrap 5, Blade |
-| Аутентификация | Laravel UI + Session |
+| Auth | Laravel UI + Session |
 
-## Требования
+## Requirements
 
 - PHP >= 8.0
 - Composer
 - MySQL >= 5.7
 - Node.js >= 16 + npm
 
-## Установка
+## Installation
 
 ```bash
 git clone <repository-url>
@@ -40,7 +42,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Настройте `.env`:
+Configure `.env`:
 
 ```dotenv
 DB_DATABASE=eventum
@@ -48,51 +50,51 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Запустите миграции:
+Run migrations and seed demo data:
 
 ```bash
 php artisan migrate --seed
 ```
 
-## Запуск
+## Running
 
 ```bash
 php artisan serve
 ```
 
-Приложение доступно на `http://localhost:8000`.
+The app will be available at `http://localhost:8000`.
 
-## Демо-данные
+## Demo Credentials
 
-После `migrate --seed` в базе появляется:
+After `migrate --seed` the following account is available:
 
-| Роль | Email | Пароль |
-|------|-------|--------|
-| Администратор | `admin@example.com` | `password` |
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@example.com` | `password` |
 
-Также создаются 5 мероприятий и 15 статей для наполнения.
+The seeder also creates 5 events and 15 articles.
 
-## Тесты
+## Testing
 
 ```bash
 php artisan test
 ```
 
-Покрытие включает: публичные страницы, CRUD панели администратора, контроль доступа, аутентификацию, модели.
+Coverage includes: public pages, admin CRUD, access control, authentication, and models.
 
-## Структура
+## Project Structure
 
 ```
 app/
 ├── Http/
 │   ├── Controllers/
-│   │   ├── EventsController.php    # Публичные страницы (список, детали)
-│   │   └── HomeController.php      # Панель администратора (CRUD)
+│   │   ├── EventsController.php    # Public pages (list, detail)
+│   │   └── HomeController.php      # Admin panel (CRUD)
 │   └── Middleware/
-│       └── EnsureUserIsAdmin.php   # Проверка прав администратора
+│       └── EnsureUserIsAdmin.php   # Admin access guard
 └── Models/
-    ├── Event.php                   # Мероприятие → hasMany Article
-    ├── Article.php                 # Статья → belongsTo Event
+    ├── Event.php                   # Event → hasMany Article
+    ├── Article.php                 # Article → belongsTo Event
     └── User.php
 
 database/
@@ -102,13 +104,13 @@ database/
 
 tests/
 ├── Feature/
-│   ├── ExampleTest.php         # Публичные страницы
-│   ├── HomeControllerTest.php  # Панель администратора
-│   └── AuthTest.php            # Аутентификация
+│   ├── ExampleTest.php         # Public pages
+│   ├── HomeControllerTest.php  # Admin panel
+│   └── AuthTest.php            # Authentication
 └── Unit/
-    └── ExampleTest.php         # Модели
+    └── ExampleTest.php         # Models
 ```
 
-## Лицензия
+## License
 
 MIT
