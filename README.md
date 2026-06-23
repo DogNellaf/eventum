@@ -1,6 +1,6 @@
 # Eventum
 
-**[Русский](README.ru.md)**
+> 🇬🇧 English | [🇷🇺 Русский](README.ru.md)
 
 A platform for publishing articles about events. Organizers can maintain a catalogue of events and attach articles to them; readers can browse publications without signing up.
 
@@ -16,7 +16,7 @@ A platform for publishing articles about events. Organizers can maintain a catal
 ## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+|---|---|
 | Backend | PHP 8.0+, Laravel 9 |
 | Database | MySQL |
 | Frontend | Bootstrap 5, Blade |
@@ -32,49 +32,49 @@ A platform for publishing articles about events. Organizers can maintain a catal
 ## Installation
 
 ```bash
+# Clone the repository
 git clone <repository-url>
 cd eventum
 
+# Install dependencies
 composer install
 npm install && npm run dev
 
+# Set up the environment file
 cp .env.example .env
 php artisan key:generate
-```
 
-Configure `.env`:
-
-```dotenv
-DB_DATABASE=eventum
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-Run migrations and seed demo data:
-
-```bash
+# Configure your database in .env (see Environment Variables below),
+# then run migrations and seed demo data
 php artisan migrate --seed
-```
 
-## Running
-
-```bash
+# Run the development server
 php artisan serve
 ```
 
-The app will be available at `http://localhost:8000`.
+The application will be available at `http://localhost:8000`.
+
+## Environment Variables
+
+Set these in `.env` before running migrations:
+
+| Variable | Description | Default |
+|---|---|---|
+| `DB_DATABASE` | Database name | `eventum` |
+| `DB_USERNAME` | Database username | `root` |
+| `DB_PASSWORD` | Database password | _(empty)_ |
 
 ## Demo Credentials
 
 After `migrate --seed` the following account is available:
 
 | Role | Email | Password |
-|------|-------|----------|
+|---|---|---|
 | Admin | `admin@example.com` | `password` |
 
 The seeder also creates 5 events and 15 articles.
 
-## Testing
+## Running Tests
 
 ```bash
 php artisan test
@@ -113,4 +113,4 @@ tests/
 
 ## License
 
-MIT
+[MIT](LICENSE)
